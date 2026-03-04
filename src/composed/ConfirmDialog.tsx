@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { Modal } from '../primitives/Modal';
 import { Button } from '../primitives/Button';
+import { ButtonSpinner } from '../primitives/ButtonSpinner';
 import { cn } from '../utils/cn';
 
 export interface ConfirmDialogProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   title: string;
   description?: string;
   confirmLabel?: string;
@@ -25,6 +27,18 @@ export function ConfirmDialog({
   variant = 'default',
   className,
 }: ConfirmDialogProps) {
+  const [confirming, setConfirming] = useState(false);
+
+  const handleConfirm = async () => {
+    setConfirming(true);
+    try {
+      await onConfirm();
+      onClose();
+    } finally {
+      setConfirming(false);
+    }
+  };
+
   return (
     <Modal open={open} onClose={onClose} className={cn('max-w-sm', className)}>
       <div className="space-y-4">
@@ -33,16 +47,15 @@ export function ConfirmDialog({
           {description && <p className="text-zinc-400 text-sm mt-1">{description}</p>}
         </div>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="ghost" onClick={onClose} disabled={confirming}>
             {cancelLabel}
           </Button>
           <Button
             variant={variant === 'danger' ? 'danger' : 'primary'}
-            onClick={() => {
-              onConfirm();
-              onClose();
-            }}
+            onClick={handleConfirm}
+            disabled={confirming}
           >
+            {confirming && <ButtonSpinner className="mr-1.5" />}
             {confirmLabel}
           </Button>
         </div>

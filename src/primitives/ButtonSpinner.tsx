@@ -6,7 +6,12 @@ export interface ButtonSpinnerProps {
 
 export function ButtonSpinner({ className }: ButtonSpinnerProps) {
   return (
-    <svg className={cn('animate-spin h-4 w-4', className)} viewBox="0 0 24 24" fill="none">
+    <svg
+      aria-hidden="true"
+      className={cn('animate-spin h-4 w-4', className)}
+      viewBox="0 0 24 24"
+      fill="none"
+    >
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path
         className="opacity-75"

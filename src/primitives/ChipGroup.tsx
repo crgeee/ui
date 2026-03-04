@@ -17,7 +17,11 @@ export function ChipGroup<T extends string>({
   className,
 }: ChipGroupProps<T>) {
   return (
-    <div className={cn('flex items-center gap-1 overflow-x-auto flex-shrink-0', className)}>
+    <div
+      role="group"
+      aria-label={label}
+      className={cn('flex items-center gap-1 overflow-x-auto flex-shrink-0', className)}
+    >
       {label && (
         <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mr-1 flex-shrink-0">
           {label}

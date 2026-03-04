@@ -1,15 +1,18 @@
 import { cn } from '../utils/cn';
+import { type AutoSaveStatus } from '../hooks/useAutoSave';
 
-export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
+/** @deprecated Use AutoSaveStatus instead */
+export type SaveStatus = AutoSaveStatus;
 
 export interface SaveIndicatorProps {
-  status: SaveStatus;
+  status: AutoSaveStatus;
   error?: string | null;
   className?: string;
 }
 
 const CheckIcon = () => (
   <svg
+    aria-hidden="true"
     className="w-3 h-3"
     viewBox="0 0 24 24"
     fill="none"

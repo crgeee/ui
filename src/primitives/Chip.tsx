@@ -8,6 +8,7 @@ export interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Chip({ active = false, className, children, ...props }: ChipProps) {
   return (
     <button
+      aria-pressed={active}
       className={cn(
         'px-2.5 py-1 text-xs rounded-md transition-colors whitespace-nowrap',
         active

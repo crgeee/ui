@@ -1,6 +1,11 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Toast, type ToastData, type ToastVariant } from './Toast';
 import { cn } from '../utils/cn';
+
+let toastCounter = 0;
+function generateId(): string {
+  return `toast-${++toastCounter}-${Date.now()}`;
+}
 
 export interface ToasterHandle {
   toast: (message: string, variant?: ToastVariant) => void;
@@ -22,7 +27,7 @@ export function useToaster(autoDismiss = 4000): ToasterHandle & { toasts: ToastD
 
   const toast = useCallback(
     (message: string, variant: ToastVariant = 'info') => {
-      const id = crypto.randomUUID();
+      const id = generateId();
       setToasts((prev) => [...prev, { id, message, variant }]);
       if (autoDismiss > 0) {
         const timer = setTimeout(() => dismiss(id), autoDismiss);
@@ -31,6 +36,15 @@ export function useToaster(autoDismiss = 4000): ToasterHandle & { toasts: ToastD
     },
     [autoDismiss, dismiss],
   );
+
+  // Cleanup all timers on unmount
+  useEffect(() => {
+    const timers = timersRef.current;
+    return () => {
+      timers.forEach((timer) => clearTimeout(timer));
+      timers.clear();
+    };
+  }, []);
 
   return { toasts, toast, dismiss };
 }
