@@ -44,7 +44,8 @@ export function NotesList({ notes, onAddNote, className }: NotesListProps) {
               if (e.key === 'Enter') handleSubmit();
             }}
             placeholder="Add a note..."
-            className="flex-1 px-3 py-1.5 bg-zinc-800 border border-zinc-700 rounded-lg text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500"
+            aria-label="Add a note"
+            className="flex-1 px-3 py-1.5 bg-zinc-800 border border-zinc-700 rounded-lg text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-500 focus-visible:ring-2 focus-visible:ring-amber-500/60"
           />
           <button
             onClick={handleSubmit}

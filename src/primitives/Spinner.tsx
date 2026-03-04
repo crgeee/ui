@@ -29,15 +29,15 @@ export const Spinner = memo(function Spinner({
       <div className="relative">
         <div
           aria-hidden="true"
-          className={`${s.box} ${s.border} rounded-full border-zinc-800 border-t-zinc-300 animate-spin`}
+          className={`${s.box} ${s.border} rounded-full border-zinc-800 border-t-zinc-300 motion-safe:animate-spin`}
         />
         <div
           aria-hidden="true"
-          className={`absolute inset-0 ${s.box} ${s.border} rounded-full border-transparent border-b-zinc-600 animate-spin`}
+          className={`absolute inset-0 ${s.box} ${s.border} rounded-full border-transparent border-b-zinc-600 motion-safe:animate-spin`}
           style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}
         />
       </div>
-      {label && <p className="text-sm text-zinc-500 animate-pulse">{label}</p>}
+      {label && <p className="text-sm text-zinc-500 motion-safe:animate-pulse">{label}</p>}
     </div>
   );
 });

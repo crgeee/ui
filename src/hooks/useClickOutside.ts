@@ -8,12 +8,16 @@ export function useClickOutside(
   const stableHandler = useCallback(handler, [handler]);
   useEffect(() => {
     if (!enabled) return;
-    function onMouseDown(e: MouseEvent) {
+    function onPointerDown(e: MouseEvent | TouchEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         stableHandler();
       }
     }
-    document.addEventListener('mousedown', onMouseDown);
-    return () => document.removeEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('touchstart', onPointerDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('touchstart', onPointerDown);
+    };
   }, [ref, stableHandler, enabled]);
 }

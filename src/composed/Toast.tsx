@@ -23,7 +23,7 @@ const variantStyles: Record<ToastVariant, string> = {
 export function Toast({ id, message, variant = 'info', onDismiss, className }: ToastProps) {
   return (
     <div
-      role="alert"
+      role={variant === 'error' ? 'alert' : 'status'}
       className={cn(
         'anim-slide-up flex items-center gap-3 px-4 py-3 border rounded-lg shadow-lg text-sm',
         variantStyles[variant],
@@ -37,6 +37,7 @@ export function Toast({ id, message, variant = 'info', onDismiss, className }: T
         aria-label="Dismiss"
       >
         <svg
+          aria-hidden="true"
           className="w-4 h-4"
           viewBox="0 0 24 24"
           fill="none"

@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { cn } from '../utils/cn';
 import { Chip } from './Chip';
 
@@ -16,14 +17,19 @@ export function ChipGroup<T extends string>({
   onChange,
   className,
 }: ChipGroupProps<T>) {
+  const labelId = useId();
+
   return (
     <div
       role="group"
-      aria-label={label}
+      aria-labelledby={label ? labelId : undefined}
       className={cn('flex items-center gap-1 overflow-x-auto flex-shrink-0', className)}
     >
       {label && (
-        <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mr-1 flex-shrink-0">
+        <span
+          id={labelId}
+          className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mr-1 flex-shrink-0"
+        >
           {label}
         </span>
       )}

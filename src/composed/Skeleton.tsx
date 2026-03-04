@@ -8,11 +8,11 @@ export interface SkeletonProps {
 export function Skeleton({ className, lines = 1 }: SkeletonProps) {
   if (lines > 1) {
     return (
-      <div className={cn('space-y-2', className)}>
+      <div role="status" aria-label="Loading" className={cn('space-y-2', className)}>
         {Array.from({ length: lines }).map((_, i) => (
           <div
             key={i}
-            className="h-4 bg-zinc-800 rounded animate-pulse"
+            className="h-4 bg-zinc-800 rounded motion-safe:animate-pulse"
             style={{ width: i === lines - 1 ? '60%' : '100%' }}
           />
         ))}
@@ -20,5 +20,11 @@ export function Skeleton({ className, lines = 1 }: SkeletonProps) {
     );
   }
 
-  return <div className={cn('h-4 bg-zinc-800 rounded animate-pulse', className)} />;
+  return (
+    <div
+      role="status"
+      aria-label="Loading"
+      className={cn('h-4 bg-zinc-800 rounded motion-safe:animate-pulse', className)}
+    />
+  );
 }

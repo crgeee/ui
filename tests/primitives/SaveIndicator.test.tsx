@@ -3,9 +3,9 @@ import { describe, it, expect } from 'vitest';
 import { SaveIndicator } from '../../src/primitives';
 
 describe('SaveIndicator', () => {
-  it('renders nothing for idle', () => {
-    const { container } = render(<SaveIndicator status="idle" />);
-    expect(container.firstChild).toBeNull();
+  it('renders empty for idle', () => {
+    render(<SaveIndicator status="idle" />);
+    expect(screen.getByRole('status')).toBeEmptyDOMElement();
   });
 
   it('shows saving text', () => {
@@ -26,5 +26,10 @@ describe('SaveIndicator', () => {
   it('shows default error', () => {
     render(<SaveIndicator status="error" />);
     expect(screen.getByText('Failed to save')).toBeInTheDocument();
+  });
+
+  it('has aria-live region', () => {
+    render(<SaveIndicator status="saving" />);
+    expect(screen.getByRole('status')).toHaveAttribute('aria-live', 'polite');
   });
 });

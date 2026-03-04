@@ -22,7 +22,8 @@ export function FilterBar({ children, search, onReset, showReset, className }: F
           value={search.value}
           onChange={(e) => search.onChange(e.target.value)}
           placeholder={search.placeholder ?? 'Search...'}
-          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-600"
+          aria-label={search.placeholder ?? 'Search'}
+          className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 focus-visible:ring-2 focus-visible:ring-amber-500/60"
         />
       )}
 

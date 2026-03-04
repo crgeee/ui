@@ -11,7 +11,7 @@ export function BarChart({ data, colors, className }: BarChartProps) {
   const maxValue = Math.max(...entries.map(([, v]) => v), 1);
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div role="img" aria-label="Bar chart" className={cn('space-y-2', className)}>
       {entries.map(([label, value]) => {
         const pct = (value / maxValue) * 100;
         const barColor = colors?.[label] ?? 'bg-zinc-500';

@@ -15,8 +15,13 @@ describe('Toast', () => {
     expect(onDismiss).toHaveBeenCalledWith('1');
   });
 
-  it('has alert role', () => {
-    render(<Toast id="1" message="Alert" onDismiss={() => {}} />);
+  it('uses role="status" for non-error toasts', () => {
+    render(<Toast id="1" message="Info" variant="info" onDismiss={() => {}} />);
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('uses role="alert" for error toasts', () => {
+    render(<Toast id="1" message="Fail" variant="error" onDismiss={() => {}} />);
     expect(screen.getByRole('alert')).toBeInTheDocument();
   });
 });

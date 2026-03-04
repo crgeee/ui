@@ -21,6 +21,7 @@ export function Badge({ label, color, size = 'md', className }: BadgeProps) {
     >
       {color && (
         <span
+          aria-hidden="true"
           className="rounded-full flex-shrink-0"
           style={{
             width: size === 'sm' ? 5 : 6,

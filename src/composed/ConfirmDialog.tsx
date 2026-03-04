@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { Modal } from '../primitives/Modal';
 import { Button } from '../primitives/Button';
 import { ButtonSpinner } from '../primitives/ButtonSpinner';
@@ -28,6 +28,7 @@ export function ConfirmDialog({
   className,
 }: ConfirmDialogProps) {
   const [confirming, setConfirming] = useState(false);
+  const titleId = useId();
 
   const handleConfirm = async () => {
     setConfirming(true);
@@ -40,10 +41,17 @@ export function ConfirmDialog({
   };
 
   return (
-    <Modal open={open} onClose={onClose} className={cn('max-w-sm', className)}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby={titleId}
+      className={cn('max-w-sm', className)}
+    >
       <div className="space-y-4">
         <div>
-          <p className="text-zinc-100 font-medium">{title}</p>
+          <p id={titleId} className="text-zinc-100 font-medium">
+            {title}
+          </p>
           {description && <p className="text-zinc-400 text-sm mt-1">{description}</p>}
         </div>
         <div className="flex justify-end gap-2">

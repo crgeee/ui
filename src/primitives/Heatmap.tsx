@@ -82,7 +82,7 @@ export function Heatmap({ data, days = 365, className }: HeatmapProps) {
   }, []);
 
   return (
-    <div className={cn('relative select-none', className)}>
+    <div role="img" aria-label="Activity heatmap" className={cn('relative select-none', className)}>
       <div className="flex mb-1 ml-6" style={{ gap: 2 }}>
         {cells.map((_, colIdx) => {
           const label = monthLabels.find((m) => m.col === colIdx);
@@ -121,6 +121,7 @@ export function Heatmap({ data, days = 365, className }: HeatmapProps) {
                 <div
                   key={rowIdx}
                   data-date={dateStr}
+                  aria-label={`${count} review${count !== 1 ? 's' : ''} on ${dateStr}`}
                   className={cn(
                     'w-3 h-3 rounded-sm cursor-default transition-all duration-200 hover:ring-1 hover:ring-zinc-400',
                     color,

@@ -8,7 +8,7 @@ export function ButtonSpinner({ className }: ButtonSpinnerProps) {
   return (
     <svg
       aria-hidden="true"
-      className={cn('animate-spin h-4 w-4', className)}
+      className={cn('motion-safe:animate-spin h-4 w-4', className)}
       viewBox="0 0 24 24"
       fill="none"
     >
