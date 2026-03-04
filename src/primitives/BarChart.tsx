@@ -1,0 +1,35 @@
+import { cn } from '../utils/cn';
+
+export interface BarChartProps {
+  data: Record<string, number>;
+  colors?: Record<string, string>;
+  className?: string;
+}
+
+export function BarChart({ data, colors, className }: BarChartProps) {
+  const entries = Object.entries(data);
+  const maxValue = Math.max(...entries.map(([, v]) => v), 1);
+
+  return (
+    <div className={cn('space-y-2', className)}>
+      {entries.map(([label, value]) => {
+        const pct = (value / maxValue) * 100;
+        const barColor = colors?.[label] ?? 'bg-zinc-500';
+        return (
+          <div key={label} className="flex items-center gap-3">
+            <span className="text-xs text-zinc-400 w-20 sm:w-28 flex-shrink-0 text-right truncate">
+              {label}
+            </span>
+            <div className="flex-1 h-5 bg-zinc-800 rounded overflow-hidden">
+              <div
+                className={cn('h-full rounded transition-all duration-500', barColor)}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+            <span className="text-xs text-zinc-500 w-6 text-right flex-shrink-0">{value}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

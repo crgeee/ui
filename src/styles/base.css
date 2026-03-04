@@ -1,0 +1,199 @@
+/* ═══════════════════════════════════════
+   @artagon/ui — base styles (opt-in)
+   Import: import '@artagon/ui/styles/base.css'
+   ═══════════════════════════════════════ */
+
+/* ── Animations ── */
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-slide-up {
+  animation: slide-up 0.2s ease-out both;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-slide-down {
+  animation: slide-down 0.15s ease-out both;
+}
+
+@keyframes expand-down {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.96);
+    transform-origin: top;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    transform-origin: top;
+  }
+}
+.anim-expand-down {
+  animation: expand-down 0.15s ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.anim-fade-in {
+  animation: fade-in 0.15s ease-out both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-page-enter {
+  animation: page-enter 0.2s ease-out both;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.anim-scale-in {
+  animation: scale-in 0.15s ease-out both;
+}
+
+@keyframes slide-up-dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-slide-up-dropdown {
+  animation: slide-up-dropdown 0.15s ease-out both;
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+.anim-backdrop {
+  animation: backdrop-in 0.2s ease-out both;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.anim-modal-enter {
+  animation: modal-enter 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Stagger children ── */
+.anim-stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.anim-stagger > *:nth-child(2) {
+  animation-delay: 30ms;
+}
+.anim-stagger > *:nth-child(3) {
+  animation-delay: 60ms;
+}
+.anim-stagger > *:nth-child(4) {
+  animation-delay: 90ms;
+}
+.anim-stagger > *:nth-child(5) {
+  animation-delay: 120ms;
+}
+.anim-stagger > *:nth-child(6) {
+  animation-delay: 150ms;
+}
+.anim-stagger > *:nth-child(7) {
+  animation-delay: 180ms;
+}
+.anim-stagger > *:nth-child(8) {
+  animation-delay: 210ms;
+}
+
+/* ── Scrollbar (opt-in: add class to container) ── */
+.artagon-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.artagon-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.artagon-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+.artagon-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* ── Noise texture (opt-in: add class to element) ── */
+.artagon-noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Accent glow ── */
+.glow-amber {
+  box-shadow:
+    0 0 20px rgba(245, 158, 11, 0.15),
+    0 0 60px rgba(245, 158, 11, 0.05);
+}
+
+/* ── Mobile safe area ── */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
