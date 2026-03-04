@@ -8,11 +8,12 @@ export interface ScoreCardProps {
 }
 
 export function ScoreCard({ label, score, max = 5, className }: ScoreCardProps) {
-  const color = score >= 4 ? 'text-green-400' : score >= 3 ? 'text-amber-400' : 'text-red-400';
+  const ratio = max > 0 ? score / max : 0;
+  const color = ratio >= 0.8 ? 'text-green-400' : ratio >= 0.6 ? 'text-amber-400' : 'text-red-400';
   const bgColor =
-    score >= 4
+    ratio >= 0.8
       ? 'bg-green-950/30 border-green-800/40'
-      : score >= 3
+      : ratio >= 0.6
         ? 'bg-amber-950/30 border-amber-800/40'
         : 'bg-red-950/30 border-red-800/40';
 

@@ -9,11 +9,10 @@ export interface FilterBarProps {
     placeholder?: string;
   };
   onReset?: () => void;
-  showReset?: boolean;
   className?: string;
 }
 
-export function FilterBar({ children, search, onReset, showReset, className }: FilterBarProps) {
+export function FilterBar({ children, search, onReset, className }: FilterBarProps) {
   return (
     <div className={cn('space-y-3', className)}>
       {search && (
@@ -30,7 +29,7 @@ export function FilterBar({ children, search, onReset, showReset, className }: F
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         {children}
 
-        {showReset && onReset && (
+        {onReset && (
           <button
             onClick={onReset}
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"

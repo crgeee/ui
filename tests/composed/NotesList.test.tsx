@@ -28,4 +28,32 @@ describe('NotesList', () => {
     fireEvent.click(screen.getByText('Add'));
     expect(onAdd).toHaveBeenCalledWith('New note');
   });
+
+  it('does not submit whitespace-only input', () => {
+    const onAdd = vi.fn();
+    render(<NotesList notes={[]} onAddNote={onAdd} />);
+    fireEvent.change(screen.getByPlaceholderText('Add a note...'), {
+      target: { value: '   ' },
+    });
+    fireEvent.click(screen.getByText('Add'));
+    expect(onAdd).not.toHaveBeenCalled();
+  });
+
+  it('submits on Enter key', () => {
+    const onAdd = vi.fn();
+    render(<NotesList notes={[]} onAddNote={onAdd} />);
+    const input = screen.getByPlaceholderText('Add a note...');
+    fireEvent.change(input, { target: { value: 'Enter note' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onAdd).toHaveBeenCalledWith('Enter note');
+  });
+
+  it('clears input after adding', () => {
+    const onAdd = vi.fn();
+    render(<NotesList notes={[]} onAddNote={onAdd} />);
+    const input = screen.getByPlaceholderText('Add a note...');
+    fireEvent.change(input, { target: { value: 'Clear me' } });
+    fireEvent.click(screen.getByText('Add'));
+    expect(input).toHaveValue('');
+  });
 });

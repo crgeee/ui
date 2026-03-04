@@ -1,7 +1,6 @@
 import { cn } from '../utils/cn';
 import { type AutoSaveStatus } from '../hooks/useAutoSave';
 
-/** @deprecated Use AutoSaveStatus instead */
 export type SaveStatus = AutoSaveStatus;
 
 export interface SaveIndicatorProps {

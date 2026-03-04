@@ -1,13 +1,17 @@
-import { type ButtonHTMLAttributes } from 'react';
+import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '../utils/cn';
 
 export interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
-export function Chip({ active = false, className, children, ...props }: ChipProps) {
+export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
+  { active = false, className, children, ...props },
+  ref,
+) {
   return (
     <button
+      ref={ref}
       aria-pressed={active}
       className={cn(
         'px-2.5 py-1 text-xs rounded-md transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60',
@@ -21,4 +25,4 @@ export function Chip({ active = false, className, children, ...props }: ChipProp
       {children}
     </button>
   );
-}
+});

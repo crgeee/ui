@@ -24,4 +24,18 @@ describe('ScoreCard', () => {
     render(<ScoreCard label="Test" score={8} max={10} />);
     expect(screen.getByText('/10')).toBeInTheDocument();
   });
+
+  it('uses ratio-based color thresholds', () => {
+    // 8/10 = 0.8, should be green
+    const { container: high } = render(<ScoreCard label="Test" score={8} max={10} />);
+    expect(high.firstChild).toHaveClass('bg-green-950/30');
+
+    // 3/10 = 0.3, should be red
+    const { container: low } = render(<ScoreCard label="Test" score={3} max={10} />);
+    expect(low.firstChild).toHaveClass('bg-red-950/30');
+
+    // 7/10 = 0.7, should be amber
+    const { container: mid } = render(<ScoreCard label="Test" score={7} max={10} />);
+    expect(mid.firstChild).toHaveClass('bg-amber-950/30');
+  });
 });

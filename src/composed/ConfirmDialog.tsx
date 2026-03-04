@@ -28,13 +28,17 @@ export function ConfirmDialog({
   className,
 }: ConfirmDialogProps) {
   const [confirming, setConfirming] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const titleId = useId();
 
   const handleConfirm = async () => {
     setConfirming(true);
+    setError(null);
     try {
       await onConfirm();
       onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setConfirming(false);
     }
@@ -53,6 +57,11 @@ export function ConfirmDialog({
             {title}
           </p>
           {description && <p className="text-zinc-400 text-sm mt-1">{description}</p>}
+          {error && (
+            <p role="alert" className="text-red-400 text-sm mt-1">
+              {error}
+            </p>
+          )}
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="ghost" onClick={onClose} disabled={confirming}>

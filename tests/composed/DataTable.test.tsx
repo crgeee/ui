@@ -46,4 +46,34 @@ describe('DataTable', () => {
     fireEvent.click(screen.getByText('Alpha'));
     expect(onClick).toHaveBeenCalledWith(data[0]);
   });
+
+  it('calls onRowClick on Enter key', () => {
+    const onClick = vi.fn();
+    render(
+      <DataTable columns={columns} data={data} keyExtractor={(r) => r.id} onRowClick={onClick} />,
+    );
+    const row = screen.getByText('Alpha').closest('tr')!;
+    fireEvent.keyDown(row, { key: 'Enter' });
+    expect(onClick).toHaveBeenCalledWith(data[0]);
+  });
+
+  it('calls onRowClick on Space key', () => {
+    const onClick = vi.fn();
+    render(
+      <DataTable columns={columns} data={data} keyExtractor={(r) => r.id} onRowClick={onClick} />,
+    );
+    const row = screen.getByText('Alpha').closest('tr')!;
+    fireEvent.keyDown(row, { key: ' ' });
+    expect(onClick).toHaveBeenCalledWith(data[0]);
+  });
+
+  it('gives clickable rows role="button" and tabIndex', () => {
+    const onClick = vi.fn();
+    render(
+      <DataTable columns={columns} data={data} keyExtractor={(r) => r.id} onRowClick={onClick} />,
+    );
+    const row = screen.getByText('Alpha').closest('tr')!;
+    expect(row).toHaveAttribute('role', 'button');
+    expect(row).toHaveAttribute('tabindex', '0');
+  });
 });

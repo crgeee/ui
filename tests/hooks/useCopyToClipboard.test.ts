@@ -47,7 +47,7 @@ describe('useCopyToClipboard', () => {
     expect(result.current.copied).toBe(false);
   });
 
-  it('returns false on clipboard error', async () => {
+  it('returns false and exposes error on clipboard failure', async () => {
     (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mockRejectedValue(
       new Error('Not allowed'),
     );
@@ -58,5 +58,29 @@ describe('useCopyToClipboard', () => {
       expect(success).toBe(false);
     });
     expect(result.current.copied).toBe(false);
+    expect(result.current.error).toBeInstanceOf(Error);
+    expect(result.current.error?.message).toBe('Not allowed');
+  });
+
+  it('starts with error = null', () => {
+    const { result } = renderHook(() => useCopyToClipboard());
+    expect(result.current.error).toBeNull();
+  });
+
+  it('clears error on successful copy', async () => {
+    (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
+      new Error('Fail'),
+    );
+
+    const { result } = renderHook(() => useCopyToClipboard());
+    await act(async () => {
+      await result.current.copy('text');
+    });
+    expect(result.current.error).not.toBeNull();
+
+    await act(async () => {
+      await result.current.copy('text');
+    });
+    expect(result.current.error).toBeNull();
   });
 });

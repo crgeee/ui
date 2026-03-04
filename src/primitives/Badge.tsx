@@ -3,13 +3,17 @@ import { cn } from '../utils/cn';
 export interface BadgeProps {
   label: string;
   color?: string;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
 export function Badge({ label, color, size = 'md', className }: BadgeProps) {
   const sizeClasses =
-    size === 'sm' ? 'px-1.5 py-0.5 text-[10px] gap-1' : 'px-2 py-1 text-xs gap-1.5';
+    size === 'sm'
+      ? 'px-1.5 py-0.5 text-[10px] gap-1'
+      : size === 'lg'
+        ? 'px-3 py-1.5 text-sm gap-2'
+        : 'px-2 py-1 text-xs gap-1.5';
 
   return (
     <span
@@ -24,8 +28,8 @@ export function Badge({ label, color, size = 'md', className }: BadgeProps) {
           aria-hidden="true"
           className="rounded-full flex-shrink-0"
           style={{
-            width: size === 'sm' ? 5 : 6,
-            height: size === 'sm' ? 5 : 6,
+            width: size === 'sm' ? 5 : size === 'lg' ? 8 : 6,
+            height: size === 'sm' ? 5 : size === 'lg' ? 8 : 6,
             backgroundColor: color,
           }}
         />

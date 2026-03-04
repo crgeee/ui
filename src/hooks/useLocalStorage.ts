@@ -8,7 +8,8 @@ export function useLocalStorage<T>(
     try {
       const item = localStorage.getItem(key);
       return item !== null ? (JSON.parse(item) as T) : initialValue;
-    } catch {
+    } catch (e) {
+      console.warn(`useLocalStorage: failed to read key "${key}"`, e);
       return initialValue;
     }
   });
@@ -19,8 +20,8 @@ export function useLocalStorage<T>(
         const next = value instanceof Function ? value(prev) : value;
         try {
           localStorage.setItem(key, JSON.stringify(next));
-        } catch {
-          // quota exceeded — silently fail
+        } catch (e) {
+          console.warn(`useLocalStorage: failed to write key "${key}"`, e);
         }
         return next;
       });

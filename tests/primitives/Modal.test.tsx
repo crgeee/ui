@@ -40,4 +40,17 @@ describe('Modal', () => {
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalledOnce();
   });
+
+  it('calls onClose on backdrop mousedown', () => {
+    const onClose = vi.fn();
+    render(
+      <Modal open={true} onClose={onClose}>
+        Content
+      </Modal>,
+    );
+    // The backdrop is the outer div wrapping the dialog
+    const backdrop = screen.getByRole('dialog').parentElement!;
+    fireEvent.mouseDown(backdrop, { target: backdrop, currentTarget: backdrop });
+    expect(onClose).toHaveBeenCalledOnce();
+  });
 });

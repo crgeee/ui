@@ -23,4 +23,9 @@ describe('Badge', () => {
     const { container } = render(<Badge label="Custom" className="mx-2" />);
     expect(container.firstChild).toHaveClass('mx-2');
   });
+
+  it('applies lg size classes', () => {
+    const { container } = render(<Badge label="Large" size="lg" />);
+    expect(container.firstChild).toHaveClass('text-sm');
+  });
 });

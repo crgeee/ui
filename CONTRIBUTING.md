@@ -5,7 +5,7 @@ Thanks for your interest in contributing! This guide will help you get set up.
 ## Development Setup
 
 ```bash
-git clone https://github.com/artagon/ui.git
+git clone https://github.com/crgeee/ui.git
 cd ui
 npm install
 ```
@@ -48,7 +48,7 @@ chore: update dependencies
 
 1. Create the component in `src/primitives/` or `src/composed/`
 2. Accept `className` prop and merge via `cn()`
-3. Use `forwardRef` for interactive elements
+3. Use `forwardRef` for elements that render `<button>`, `<input>`, `<select>`, or `<a>`
 4. Export from the category's `index.ts` and from `src/index.ts`
 5. Add tests in `tests/`
 6. Named exports only (no `export default`)
@@ -56,7 +56,7 @@ chore: update dependencies
 ## Component Guidelines
 
 - Every component accepts `className` merged via `cn()`
-- Use `forwardRef` on interactive elements (Button, Input, Select, Modal)
+- Use `forwardRef` on elements that render `<button>`, `<input>`, `<select>`, `<a>`, or `<dialog>` (Button, Input, Select, Chip, Modal)
 - Extend native HTML attributes where appropriate
 - No icon library dependency — accept `ReactNode` icon props
 - Export props interfaces alongside components

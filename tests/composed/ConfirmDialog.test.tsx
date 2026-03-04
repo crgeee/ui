@@ -43,4 +43,35 @@ describe('ConfirmDialog', () => {
       expect(onClose).toHaveBeenCalledOnce();
     });
   });
+
+  it('stays open and shows error when onConfirm rejects', async () => {
+    const onConfirm = vi.fn().mockRejectedValue(new Error('Network error'));
+    const onClose = vi.fn();
+    render(<ConfirmDialog open={true} onClose={onClose} onConfirm={onConfirm} title="Fail?" />);
+    fireEvent.click(screen.getByText('Confirm'));
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent('Network error');
+    });
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('disables buttons while confirming', async () => {
+    let resolveConfirm: () => void;
+    const onConfirm = vi.fn(
+      () =>
+        new Promise<void>((r) => {
+          resolveConfirm = r;
+        }),
+    );
+    render(<ConfirmDialog open={true} onClose={() => {}} onConfirm={onConfirm} title="Disable?" />);
+    fireEvent.click(screen.getByText('Confirm'));
+
+    expect(screen.getByText('Cancel').closest('button')).toBeDisabled();
+    expect(screen.getByText('Confirm').closest('button')).toBeDisabled();
+
+    resolveConfirm!();
+    await waitFor(() => {
+      expect(screen.getByText('Confirm').closest('button')).not.toBeDisabled();
+    });
+  });
 });

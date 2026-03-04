@@ -35,10 +35,10 @@ describe('FilterBar', () => {
     expect(onChange).toHaveBeenCalledWith('test');
   });
 
-  it('shows reset button when showReset is true', () => {
+  it('shows reset button when onReset is provided', () => {
     const onReset = vi.fn();
     render(
-      <FilterBar showReset onReset={onReset}>
+      <FilterBar onReset={onReset}>
         <span>Filters</span>
       </FilterBar>,
     );
@@ -46,9 +46,9 @@ describe('FilterBar', () => {
     expect(onReset).toHaveBeenCalled();
   });
 
-  it('hides reset when showReset is false', () => {
+  it('hides reset when onReset is not provided', () => {
     render(
-      <FilterBar onReset={() => {}}>
+      <FilterBar>
         <span>Filters</span>
       </FilterBar>,
     );

@@ -26,4 +26,10 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage('key', 'default'));
     expect(result.current[0]).toBe('stored');
   });
+
+  it('falls back to initial on corrupted JSON', () => {
+    localStorage.setItem('key', '{broken');
+    const { result } = renderHook(() => useLocalStorage('key', 'fallback'));
+    expect(result.current[0]).toBe('fallback');
+  });
 });
